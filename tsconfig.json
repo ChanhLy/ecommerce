@@ -14,7 +14,8 @@
     "isolatedModules": true,
     "baseUrl": "./",
     "noImplicitAny": false,
-    "jsx": "react-jsx"
+    "jsx": "preserve",
+    "incremental": true
   },
   "typeAcquisition": {
     "include": ["jest"]
