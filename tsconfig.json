@@ -15,6 +15,7 @@
     "baseUrl": "./",
     "noImplicitAny": false,
     "jsx": "preserve",
+    "allowSyntheticDefaultImports": true,
     "incremental": true
   },
   "typeAcquisition": {
