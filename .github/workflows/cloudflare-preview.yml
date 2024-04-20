@@ -1,0 +1,31 @@
+name: "Cloudflare Preview URL"
+on:
+  push:
+    branches:
+      - '**'
+      - '!main'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - run: |
+          echo "The GitHub Action Secret will be masked:  "
+          echo ${{ secrets.CLOUDFLARE_ACCOUNT_EMAIL }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_EMAIL: ${{ secrets.CLOUDFLARE_ACCOUNT_EMAIL }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - run: sleep 30
+      - name: cloudflare-preview-url
+        uses: zentered/cloudflare-preview-url@v1.4.1
+        id: cloudflare_preview_url
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_EMAIL: ${{ secrets.CLOUDFLARE_ACCOUNT_EMAIL }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        with:
+          cloudflare_project_id: 'ecommerce'
+          wait_until_ready: true
+      - name: Get URL
+        run: echo "https://${{ steps.cloudflare_preview_url.outputs.preview_url }}"
