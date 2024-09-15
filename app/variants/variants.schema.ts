@@ -2,6 +2,14 @@ import { relations } from "drizzle-orm";
 import { numeric, pgTable, text, uuid } from "drizzle-orm/pg-core";
 import { productSchema } from "~/products/products.schema";
 
+export type Variant = {
+  id: string;
+  options: string[] | null;
+  sku: string;
+  price: string;
+  productId: string;
+};
+
 export const variantSchema = pgTable("variants", {
   id: uuid("id").primaryKey(),
   sku: text("sku").notNull(),
